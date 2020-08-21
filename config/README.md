@@ -1,11 +1,12 @@
-# mosip-configuration-templates
-Templates for mosip configuration.
+Since are working with 2 kubernetes clusters - mz and dmz, for registration process we have to replicate the property files with a suffix -dmz.
 
-These template files contain all the configuration information needed by mosip services. To use these files to setup MOSIP services manually perform following actions:
+Suffix:
+* MZ (secure cluster): -mz
+* DMZ : -dmz
 
-1. Create a folder named `config` and copy all the files from `config-templates` folder and paste them in the new folder `config` created.
 
-2. Replace all the value placeholders with the actual values for your deployments, i.e. replace all the values starting and ending with double curly brackets and all the values  starting and ending with angular brackets.<br/>
-  
-2. Once done, rename all the files and replace the env in property files' names to the environment for which you have created the properties.
-   For example if you are setting up `dev` environment, rename the property file `id-repository-env.properties` to `id-repository-dev.properties` and all other files also in the same way.  
+* Properties for secure zone hazelcast have been duplicated as -dmz.  Earlier hazelcast dmz assumed docker containers, not kubernetes.
+* File name needs to have `_dmz` and `_mz`, e.g. `hazelcast_dmz-dmz.xml` as these suffixes are being searched in the code (hardcoded).
+
+Similarly registration-processor-mz.properties has been replicated to registration-processor-dmz.properties.  Some of the links in the latter point to MZ cluster, hence the links are different.
+
